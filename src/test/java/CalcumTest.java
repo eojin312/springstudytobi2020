@@ -1,3 +1,4 @@
+import calcuator.Calculator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ public class CalcumTest {
     public void sumOfNumbers() throws IOException {
         Calculator calculator = new Calculator();
         int sum = calculator.calSum(getClass().getResource(
-                "numbers.text").getPath());
+                "calcuator/numbers.text").getPath());
         Assert.assertEquals(sum, 10);
     }
 }
