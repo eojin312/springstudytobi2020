@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
  * AddStatement를 메소드마다 추가해야했던 클래스 파일 하나 줄임
  * 내부 클래스 특징을 이용해 로컬변수를 바로 사용할 수 있는 장점
  */
-public class UserDao {
+public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사용하지않고 DI 를 적용했다.,/ㅏ
     private JdbcContext jdbcContext;
 
     // JdbcContext 를 Setter 로 DI 주입 시킨다
@@ -31,14 +31,23 @@ public class UserDao {
     }
 
     public void deleteAll() throws Exception {
+        excuteSql("delete from users");
+
+    }
+
+    /**
+     * 콜백 오브젝트 반복될 가능성이 있기에 따로 빼줌
+     * @param query
+     * @throws Exception
+     */
+    private void excuteSql(final String query) throws Exception {
         this.jdbcContext.workWithStatementStrategy(
                 new StatementStrategy() {
                     public PreparedStatement makePreparedStatement(Connection c) throws Exception {
-                        PreparedStatement ps = c.prepareStatement("delete from users");
-                        return ps;
+                        PreparedStatement ps = c.prepareStatement(query);
+                        return ps;  //변하지 않는 콜백 클래스 정의와 오브젝트 생성
                     }
                 }
         );
-
-   }
+    }
 }
