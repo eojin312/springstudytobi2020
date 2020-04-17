@@ -31,23 +31,6 @@ public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사�
     }
 
     public void deleteAll() throws Exception {
-        excuteSql("delete from users");
-
-    }
-
-    /**
-     * 콜백 오브젝트 반복될 가능성이 있기에 따로 빼줌
-     * @param query
-     * @throws Exception
-     */
-    private void excuteSql(final String query) throws Exception {
-        this.jdbcContext.workWithStatementStrategy(
-                new StatementStrategy() {
-                    public PreparedStatement makePreparedStatement(Connection c) throws Exception {
-                        PreparedStatement ps = c.prepareStatement(query);
-                        return ps;  //변하지 않는 콜백 클래스 정의와 오브젝트 생성
-                    }
-                }
-        );
+        this.jdbcContext.excuteSql("delete from users");
     }
 }

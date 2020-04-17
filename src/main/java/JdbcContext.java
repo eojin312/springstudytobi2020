@@ -35,4 +35,21 @@ public class JdbcContext {
             }
         }
     }
+
+    /**
+     * 콜백 오브젝트 반복될 가능성이 있기에 따로 빼줌
+     * jdbcContext 클래스로 콜백 생성과 템플릿 호출이 담긴 이 메소드를 옮겨서 문제될 거 없다 !
+     * @param query
+     * @throws Exception
+     */
+    public void excuteSql(final String query) throws Exception {
+        this.workWithStatementStrategy(
+                new StatementStrategy() {
+                    public PreparedStatement makePreparedStatement(Connection c) throws Exception {
+                        PreparedStatement ps = c.prepareStatement(query);
+                        return ps;  //변하지 않는 콜백 클래스 정의와 오브젝트 생성
+                    }
+                }
+        );
+    }
 }
