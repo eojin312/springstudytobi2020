@@ -9,7 +9,7 @@ public class UserService {
     }
 
     public void upgradeLevels() throws SQLException {
-        List<User> users = userDao.getAll();
+        List<User> users = (List<User>) userDao.getAll();
         for (User user : users) {
             Boolean changed = null;
             if (user.getLevel() == Level.BASIC && user.getLogin() >= 50)  {
