@@ -1,9 +1,12 @@
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -43,6 +46,12 @@ public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사�
 //        );
 //    }
 
+
+
+    /**
+     * jdbcTemplate 내장 콜백 사용하는 메소드 호출하도록 함
+     * @throws Exception
+     */
     public void deleteAll() throws Exception {
         this.jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -50,6 +59,6 @@ public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사�
                         return connection.prepareStatement("delete from users");
                     }
                 }
-        )
+        );
     }
 }
