@@ -7,6 +7,7 @@ public enum Level {
 
     Level(int value) {
         this.value = value;
+        next = null;
     }
 
     public int intValue() {
