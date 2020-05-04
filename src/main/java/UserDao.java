@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * 로컬 클래스로 StatementStrategy 의 구현클래스의 숫자를 줄이기
@@ -29,23 +30,6 @@ public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사�
     }
 
 
-//
-//    public void add(final Users user) throws Exception {
-//        this.jdbcContext.workWithStatementStrategy(
-//                new StatementStrategy() {
-//                    public PreparedStatement makePreparedStatement(Connection c) throws Exception {
-//                        PreparedStatement ps = c.prepareStatement("insert into users(id, ,name, pwd values (?, ?, ?))");
-//                        ps.setString(1, user.getId());
-//                        ps.setString(2, user.getName());
-//                        ps.setString(3, user.getPwd());
-//                        return ps;
-//                    }
-//                }
-//        );
-//    }
-
-
-
     /**
      * jdbcTemplate 내장 콜백 사용하는 메소드 호출하도록 함
      * @throws Exception
@@ -61,7 +45,8 @@ public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사�
     }
 
 
-    public ResultSet getAll() throws SQLException {
+    public List<User> getAll() throws SQLException {
+        List<User> userList;
         Connection c = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -70,7 +55,7 @@ public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사�
             c = getConnection();
             ps = c.prepareStatement("select from users");
             rs = ps.executeQuery();
-            return rs;
+            return userList;
         } catch(SQLException e) {
             throw e;
         } finally {
