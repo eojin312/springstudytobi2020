@@ -55,7 +55,7 @@ public class UserDao {     //UserDao 와 JdbcContext 는 인터페이스를 사�
             c = getConnection();
             ps = c.prepareStatement("select from users");
             rs = ps.executeQuery();
-            return userList;
+            return null;
         } catch(SQLException e) {
             throw e;
         } finally {
